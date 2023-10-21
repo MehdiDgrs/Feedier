@@ -10,6 +10,7 @@ class Review extends Model
     use HasFactory;
     protected $fillable = [
         'message',
+        'name'
     ];
     
 }

@@ -34,10 +34,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);
+
+    public function isAdmin() {
+        return $this->role ==='admin';
     }
+
+
     /**
      * The attributes that should be cast.
      *
