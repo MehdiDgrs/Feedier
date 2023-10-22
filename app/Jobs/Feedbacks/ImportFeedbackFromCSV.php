@@ -42,6 +42,7 @@ class ImportFeedbackFromCSV implements ShouldQueue
 
             $csv = Reader::createFromString($csvContent);
             $csv->setHeaderOffset(0);
+            echo $csv;
         } catch (Exception $e) {
             // Report the error to Sentry for detailed tracking.
             \Sentry\captureException($e);
