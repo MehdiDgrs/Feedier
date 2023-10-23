@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReviewController;
-use App\Models\Review;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,26 +27,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/users', function () {
-    $users = User::all();
-    return $users;
-}); 
 
-Route::get('/review',function(Response $response){
-    $reviews = Review::all();
-    return $reviews;
-});
+
+Route::resource('feedbacks', FeedbackController::class)
+    ->only(['index', 'store', 'create']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/reviews', ReviewController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+require __DIR__ . '/auth.php';

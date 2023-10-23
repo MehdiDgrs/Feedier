@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->unsignedTinyInteger('rating');
-            $table->dateTime('start_date');
-            $table->text('address');
-            $table->string('apartments', 255);
+            $table->unsignedTinyInteger('rating')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->text('address')->nullable();
+            $table->string('apartments', 255)->nullable();
             $table->string('source', 255);
             $table->timestamps();
         });
