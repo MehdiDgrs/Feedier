@@ -24,9 +24,9 @@ class Kernel extends ConsoleKernel
         )->hourly();
 
         // 
-        $schedule->job(
-            new ExportFeedbacks()
-        )->everyFiveSeconds();
+        // $schedule->job(
+        //     new ExportFeedbacks()
+        // )->everyFiveSeconds();
     }
 
     /**

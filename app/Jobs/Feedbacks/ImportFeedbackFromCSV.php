@@ -42,7 +42,25 @@ class ImportFeedbackFromCSV implements ShouldQueue
 
             $csv = Reader::createFromString($csvContent);
             $csv->setHeaderOffset(0);
-            echo $csv;
+            $records = $csv->getRecords();
+            foreach ($records as $record) {
+                $existingRecord = Feedback::where('content', $record['Reviews Content'])
+                    ->where('start_date', $record['Start Date'])
+                    ->where('address', $record['Address'])
+                    ->where('source', $record['Source'])
+                    ->first();
+
+                if (!$existingRecord) {
+                    Feedback::create([
+                        'content' => $record['Reviews Content'],
+                        'rating' => $record['Rating'],
+                        'start_date' => $record['Start Date'],
+                        'address' => $record['Address'],
+                        'apartments' => $record['Appartments'],
+                        'source' => $record['Source'],
+                    ]);
+                }
+            }
         } catch (Exception $e) {
             // Report the error to Sentry for detailed tracking.
             \Sentry\captureException($e);
