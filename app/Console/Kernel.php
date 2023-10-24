@@ -18,12 +18,12 @@ class Kernel extends ConsoleKernel
 
         $csvUrl = 'https://feedier-production.s3.eu-west-1.amazonaws.com/special/Reviews+Import.csv';
 
-
+        // Import CSV to DB every hour 
         $schedule->job(
             new ImportFeedbackFromCSV($csvUrl)
         )->hourly();
 
-        // 
+        // Send a mail to user with admin role every Friday
         $schedule->job(
             new ExportFeedbacks()
         )->weeklyOn(5);

@@ -6,11 +6,11 @@ use App\Mail\FeedbackExportMail;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use App\Models\Feedback;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 
 class MailTest extends TestCase
 {
-    use RefreshDatabase;
+
 
     public function test_feedbacks_sended_in_json_attachment(): void
     {
