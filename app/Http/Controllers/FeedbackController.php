@@ -21,6 +21,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
+        // Only user with admin role can access this route, I hesitated to use a middleware 
         if (!Gate::allows('read-feedbacks')) {
             abort(403);
         }

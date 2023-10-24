@@ -35,7 +35,7 @@ class ExportFeedbacks implements ShouldQueue
             $file = tempnam(sys_get_temp_dir(), 'feedbacks') . '.json';
             file_put_contents($file, $jsonFeedbacks);
             Log::info("Feedbacks content: " . $jsonFeedbacks);
-            // Send the feedbacks as an attachment in an email to the admin
+            // Send the feedbacks in an email to user with role admin
             Mail::to(env('MAIL_TO_ADMIN'))->send(new FeedbackExportMail($file));
         } catch (Exception $e) {
             // Report the exception to Sentry

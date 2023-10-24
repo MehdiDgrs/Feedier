@@ -22,7 +22,7 @@ class ImportFeedbackFromCSV implements ShouldQueue
      * Create a new job instance.
      */
 
-    // Put url of the CSV file to import as my object dependency  
+    // Url of the CSV file to import as my object dependency  
     public function __construct(string $csvUrl)
     {
         $this->csvUrl = $csvUrl;
@@ -52,7 +52,7 @@ class ImportFeedbackFromCSV implements ShouldQueue
                     ->where('source', $record['Source'])
                     ->first();
 
-                // If not create each record in database
+                // If not create record in database
                 if (!$existingRecord) {
                     Feedback::create([
                         'content' => $record['Reviews Content'],
