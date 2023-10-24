@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Feedback;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use App\Mail\FeedbackExportMail;
 
 class ExportFeedbacks implements ShouldQueue
@@ -30,10 +31,10 @@ class ExportFeedbacks implements ShouldQueue
             // Convert feedbacks collection to a JSON format
             $jsonFeedbacks = $feedbacks->toJson(JSON_PRETTY_PRINT);
 
-            // Create a temporary file to store the JSON string
+            // Create a temporary file in the system to store the JSON 
             $file = tempnam(sys_get_temp_dir(), 'feedbacks') . '.json';
             file_put_contents($file, $jsonFeedbacks);
-
+            Log::info("Feedbacks content: " . $jsonFeedbacks);
             // Send the feedbacks as an attachment in an email to the admin
             Mail::to(env('MAIL_TO_ADMIN'))->send(new FeedbackExportMail($file));
         } catch (Exception $e) {
