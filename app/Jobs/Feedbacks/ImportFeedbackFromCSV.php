@@ -44,12 +44,15 @@ class ImportFeedbackFromCSV implements ShouldQueue
             $csv->setHeaderOffset(0);
             $records = $csv->getRecords();
             foreach ($records as $record) {
+
+                // Check if record already exist in database
                 $existingRecord = Feedback::where('content', $record['Reviews Content'])
                     ->where('start_date', $record['Start Date'])
                     ->where('address', $record['Address'])
                     ->where('source', $record['Source'])
                     ->first();
 
+                // If not create each record in database
                 if (!$existingRecord) {
                     Feedback::create([
                         'content' => $record['Reviews Content'],

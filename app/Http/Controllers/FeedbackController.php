@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Feedback;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Gate;
 
 class FeedbackController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        if (!Gate::allows('read-feedbacks')) {
+            abort(403);
+        }
         // Return every feedbacks as a JSON. 
         return Feedback::all();
     }
@@ -40,43 +50,11 @@ class FeedbackController extends Controller
             Feedback::create($validated);
             // Redirect with success message 
             return redirect(route('feedbacks.create'))
-                ->with('success', 'Votre feedback a été enregistré avec succès.');
+                ->with('success', 'Feedback stored with success.');
         } catch (\Exception $e) {
             \Sentry\captureException($e);
             return redirect(route('feedbacks.create'))
                 ->with('error', 'error, try again please');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
