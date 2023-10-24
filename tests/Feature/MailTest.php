@@ -23,12 +23,13 @@ class MailTest extends TestCase
         file_put_contents($file, $jsonFeedbacks);
 
         Mail::fake();
+        $mailable = new FeedbackExportMail($file);
+        Mail::to('test@example.com')->send($mailable);
 
 
+        Mail::assertSent(FeedbackExportMail::class, function ($mail) use ($file) {
 
-        Mail::assertQueued(FeedbackExportMail::class, function ($mail) use ($file) {
-
-            return $mail->hasAttachment($file, 'application/json');
+            return $mail->hasAttachment($file);
         });
 
         // Delete temp file

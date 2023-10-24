@@ -49,7 +49,7 @@ class FeedbackController extends Controller
             ]);
             Feedback::create($validated);
             // Redirect with success message 
-            return redirect(route('feedbacks.create'))
+            return redirect(route('dashboard'))
                 ->with('success', 'Feedback stored with success.');
         } catch (\Exception $e) {
             \Sentry\captureException($e);
