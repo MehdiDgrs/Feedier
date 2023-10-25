@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
         // Send a mail to user with admin role every Friday
         $schedule->job(
             new ExportFeedbacks()
-        )->weeklyOn(5);
+        )->weeklyOn(5, '15:00');
     }
 
     /**
