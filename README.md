@@ -17,4 +17,4 @@ This project is a Laravel application built with the purpose of importing and st
 - Users with role admin can log in to the application to import feedback.
 
 ### 🛠 Sentry Error Tracking
-- The application is integrated with Sentry for exception monitoring. Ensure to have Sentry's DSN configured in your `.env` file to receive notifications on exceptions.
+- The application is integrated with Sentry for exception monitoring. 
